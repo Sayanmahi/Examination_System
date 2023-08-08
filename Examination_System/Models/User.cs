@@ -13,6 +13,10 @@ namespace Examination_System.Models
         public int InstId { get; set; }
         [ForeignKey("InstId")]
         public Institute Institute { get; set; }
+        public int BranchsId { get; set; }
+        [ForeignKey("BranchsId")]
+        public Branch Branch { get; set; }
+        public int IsActive { get; set; }
 
     }
 }
