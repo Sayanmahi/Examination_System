@@ -1,18 +1,44 @@
 ﻿using Examination_System.Data.DTO;
 using Examination_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Examination_System.Data.Services
 {
     public class UserService:IUserService
     {
         private readonly AppDbContext db;
-        public UserService(AppDbContext _db)
+        private IConfiguration _config;
+        public UserService(AppDbContext _db, IConfiguration config)
         {
             db = _db;
+            _config = config;
+
         }
+
+        public async Task<string> Login(LoginDTO d)
+        {
+            var f=await  db.Users.FirstOrDefaultAsync(n => n.Email==d.Email && n.Password==d.Password);
+            if (f != null)
+            {
+                var jw = JwtGenerate(f.Email, f.Type, f.Id);
+                return (jw);
+            }
+            else
+                return ("Not");
+        }
+
         public async Task<string> Register(UserDTO d)
         {
+            var f=db.Users.FirstOrDefault(n=>n.Email==d.Email || n.Phone==d.Phone);
+            if (f != null)
+            {
+                return ("Exists");
+            }
             var o = new User()
             {
                 Name = d.Name,
@@ -21,11 +47,32 @@ namespace Examination_System.Data.Services
                 Password = d.Password,
                 Type = d.Type,
                 InstId=d.InstId,
-                IsActive=0
+                IsActive=0,
+                BranchsId=d.BranchId
             };
             await db.Users.AddAsync(o);
             await db.SaveChangesAsync();
             return ("Done");
+        }
+        private string JwtGenerate(string email, string role, int userid)
+        {
+            var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
+            var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256); //security key is public key so hashing security key
+            var claims = new[]//dismantling the payload datas
+            {
+                 new Claim("Email",email),
+                 new Claim("UserId",userid.ToString()),
+                 new Claim(ClaimTypes.Role,role)
+                };
+            var token = new JwtSecurityToken(
+                issuer: _config["JWT:Issuer"],
+                audience: _config["JWT:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(60),
+                signingCredentials: credentials
+                );
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
         }
 
     }

@@ -6,5 +6,6 @@ namespace Examination_System.Data.Services
     public interface IUserService
     {
         Task<string> Register(UserDTO d);
+        Task<string> Login(LoginDTO d);
     }
 }

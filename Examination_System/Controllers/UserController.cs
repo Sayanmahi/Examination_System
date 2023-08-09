@@ -23,10 +23,15 @@ namespace Examination_System.Controllers
         }
 
         // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost("[action]")]
+        public async Task<string> Login(LoginDTO l)
         {
-            return "value";
+            var g=await userService.Login(l);
+            if (g == "Not")
+                return ("Please register");
+            return (g);
+
+
         }
 
         // POST api/<UserController>
@@ -34,7 +39,9 @@ namespace Examination_System.Controllers
         public async Task<string> Register([FromBody] UserDTO u)
         {
             var o = await userService.Register(u);
-            if (o == "Done")
+            if (o == "Exists")
+                return ("User Already exists");
+            else if (o == "Done")
                 return ("Registered");
             else
                 return ("Not registered");
