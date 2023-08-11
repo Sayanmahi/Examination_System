@@ -4,6 +4,7 @@ using Examination_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Examination_System.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230810161656_v4")]
+    partial class v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace Examination_System.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BranchSubject", b =>
+                {
+                    b.Property<int>("BranchesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BranchesId", "SubjectsId");
+
+                    b.HasIndex("SubjectsId");
+
+                    b.ToTable("BranchSubject");
+                });
 
             modelBuilder.Entity("Examination_System.Models.Branch", b =>
                 {
@@ -37,29 +55,6 @@ namespace Examination_System.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Branches");
-                });
-
-            modelBuilder.Entity("Examination_System.Models.BranchSubject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("BranchSubjects");
                 });
 
             modelBuilder.Entity("Examination_System.Models.Institute", b =>
@@ -160,9 +155,6 @@ namespace Examination_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -171,8 +163,6 @@ namespace Examination_System.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectId");
 
                     b.ToTable("Questions");
                 });
@@ -189,7 +179,12 @@ namespace Examination_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("QuestionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
 
                     b.ToTable("Subjects");
                 });
@@ -271,23 +266,19 @@ namespace Examination_System.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Examination_System.Models.BranchSubject", b =>
+            modelBuilder.Entity("BranchSubject", b =>
                 {
-                    b.HasOne("Examination_System.Models.Branch", "Branch")
-                        .WithMany("BranchSubjects")
-                        .HasForeignKey("BranchId")
+                    b.HasOne("Examination_System.Models.Branch", null)
+                        .WithMany()
+                        .HasForeignKey("BranchesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Examination_System.Models.Subject", "Subject")
-                        .WithMany("BrancheSubjects")
-                        .HasForeignKey("SubjectId")
+                    b.HasOne("Examination_System.Models.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Branch");
-
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Examination_System.Models.MarksObt", b =>
@@ -317,11 +308,11 @@ namespace Examination_System.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Examination_System.Models.Question", b =>
+            modelBuilder.Entity("Examination_System.Models.Subject", b =>
                 {
-                    b.HasOne("Examination_System.Models.Subject", null)
-                        .WithMany("Questions")
-                        .HasForeignKey("SubjectId");
+                    b.HasOne("Examination_System.Models.Question", null)
+                        .WithMany("Subjects")
+                        .HasForeignKey("QuestionId");
                 });
 
             modelBuilder.Entity("Examination_System.Models.TempMark", b =>
@@ -370,16 +361,9 @@ namespace Examination_System.Migrations
                     b.Navigation("Institute");
                 });
 
-            modelBuilder.Entity("Examination_System.Models.Branch", b =>
+            modelBuilder.Entity("Examination_System.Models.Question", b =>
                 {
-                    b.Navigation("BranchSubjects");
-                });
-
-            modelBuilder.Entity("Examination_System.Models.Subject", b =>
-                {
-                    b.Navigation("BrancheSubjects");
-
-                    b.Navigation("Questions");
+                    b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618
         }

@@ -33,6 +33,16 @@ namespace Examination_System.Controllers
 
 
         }
+        [HttpPost("[action]")]
+        public async Task<string> LoginAdmin(LoginDTO l)
+        {
+            var g = await userService.AdminLogin(l);
+            if (g == "Not")
+                return ("Please register");
+            return (g);
+
+
+        }
 
         // POST api/<UserController>
         [HttpPost("[action]")]
@@ -48,9 +58,29 @@ namespace Examination_System.Controllers
         }
 
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("[action]")]
+        public async Task<string> AdminApprove(int id)
         {
+            var f=await userService.AdminAprroval(id);
+            if (f == "Approved")
+                return ("Approved");
+            else
+                return ("Not Found");
+        }
+        [HttpPut("[action]")]
+        public async Task<string> AdminDeny([FromBody] int id)
+        {
+            var f = await userService.AdminDenial(id);
+            if (f == "Denied")
+                return ("Denied");
+            else
+                return ("Not Found");
+        }
+        [HttpPut("[action]")]
+        public async Task<string> UserAgainRequest([FromBody] int id)
+        {
+            var f = await userService.UserRequestAgain(id);
+            return (f);
         }
 
         // DELETE api/<UserController>/5

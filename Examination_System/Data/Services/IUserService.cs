@@ -7,5 +7,9 @@ namespace Examination_System.Data.Services
     {
         Task<string> Register(UserDTO d);
         Task<string> Login(LoginDTO d);
+        Task<string> AdminLogin(LoginDTO d);
+        Task<string> AdminAprroval(int id);
+        Task<string> AdminDenial(int id);
+        Task<string> UserRequestAgain(int id);
     }
 }

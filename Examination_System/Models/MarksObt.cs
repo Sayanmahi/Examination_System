@@ -12,6 +12,8 @@ namespace Examination_System.Models
         [ForeignKey("SubjectId")]
         public Subject Subject { get; set; }
         public int QuesId { get;set; }
+        [ForeignKey("QuesId")]
+
         public Question Question { get; set; }
         public int Total { get; set; }
     }

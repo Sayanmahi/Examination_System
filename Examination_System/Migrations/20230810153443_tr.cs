@@ -5,24 +5,11 @@
 namespace Examination_System.Migrations
 {
     /// <inheritdoc />
-    public partial class v1 : Migration
+    public partial class tr : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Branches",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Branches", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Institutes",
                 columns: table => new
@@ -75,6 +62,26 @@ namespace Examination_System.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Branches",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SubjeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Branches", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Branches_Subjects_SubjeId",
+                        column: x => x.SubjeId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -102,30 +109,6 @@ namespace Examination_System.Migrations
                         name: "FK_Users_Institutes_InstId",
                         column: x => x.InstId,
                         principalTable: "Institutes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BranSubs",
-                columns: table => new
-                {
-                    BranchId = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BranSubs", x => new { x.BranchId, x.SubjectId });
-                    table.ForeignKey(
-                        name: "FK_BranSubs_Branches_BranchId",
-                        column: x => x.BranchId,
-                        principalTable: "Branches",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BranSubs_Subjects_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -162,7 +145,7 @@ namespace Examination_System.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,13 +179,13 @@ namespace Examination_System.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BranSubs_SubjectId",
-                table: "BranSubs",
-                column: "SubjectId");
+                name: "IX_Branches_SubjeId",
+                table: "Branches",
+                column: "SubjeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MarksObts_QuestionId",
@@ -249,9 +232,6 @@ namespace Examination_System.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BranSubs");
-
-            migrationBuilder.DropTable(
                 name: "MarksObts");
 
             migrationBuilder.DropTable(
@@ -261,9 +241,6 @@ namespace Examination_System.Migrations
                 name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "Subjects");
-
-            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
@@ -271,6 +248,9 @@ namespace Examination_System.Migrations
 
             migrationBuilder.DropTable(
                 name: "Institutes");
+
+            migrationBuilder.DropTable(
+                name: "Subjects");
         }
     }
 }

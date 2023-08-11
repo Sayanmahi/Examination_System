@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Examination_System.Models
 {
@@ -6,6 +7,8 @@ namespace Examination_System.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<BranSub> BranSubs { get; set; }
+        public virtual List<BranchSubject> BranchSubjects { get; set; }
+
+
     }
 }

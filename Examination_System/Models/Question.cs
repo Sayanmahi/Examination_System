@@ -7,6 +7,7 @@ namespace Examination_System.Models
     {
         [Key]
         public int Id { get; set; }
+        //public virtual ICollection<Subject> Subjects { get; set; }
 
         public string Title { get; set; }
         public string Option1 { get; set; }

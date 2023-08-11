@@ -31,6 +31,19 @@ namespace Examination_System.Data.Services
             else
                 return ("Not");
         }
+        public async Task<string> AdminLogin(LoginDTO d)
+        {
+            var f= await db.Users.FirstOrDefaultAsync(n=>n.Email==d.Email && n.Password==d.Password);
+            if (f != null)
+            {
+                var jw=JwtGenerate(f.Email,f.Type, f.Id);   
+                return (jw);
+            }
+            else
+            {
+                return ("Not"); 
+            }
+        }
 
         public async Task<string> Register(UserDTO d)
         {
@@ -75,5 +88,49 @@ namespace Examination_System.Data.Services
             return jwt;
         }
 
+        public async Task<string> AdminAprroval(int id)
+        {
+            var d=await db.Users.FirstOrDefaultAsync(n=> n.Id==id);
+            if(d!=null)
+            {
+                d.IsActive = 1;
+                await db.SaveChangesAsync();
+                return ("Approved");
+            }
+            return ("Not");
+
+        }
+        public async Task<string> AdminDenial(int id)
+        {
+            var d = await db.Users.FirstOrDefaultAsync(n => n.Id == id);
+            if (d != null)
+            {
+                d.IsActive = 2;
+                await db.SaveChangesAsync();
+                return ("Denied");
+            }
+            return ("Not");
+        }
+
+        public async Task<string> UserRequestAgain(int id)
+        {
+            var d=await db.Users.FirstOrDefaultAsync(n=> n.Id==id);
+            if(d!=null)
+            {
+                if (d.IsActive == 2)
+                {
+                    d.IsActive = 0;
+                    await db.SaveChangesAsync();
+                    return ("Placed for reverification");
+                }
+                else if (d.IsActive == 1)
+                {
+                    return ("Already Verified");
+                }
+                else
+                    return ("Wait for verification");
+            }
+            return ("Not Found");
+        }
     }
 }
