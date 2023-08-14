@@ -36,9 +36,23 @@ namespace Examination_System.Controllers
         }
 
         // PUT api/<SubjectController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("[action]")]
+        public async Task<string> Addbranchconnection(int sid,int bid)
         {
+            var r=await subjectService.AddBranchConnection(sid, bid);
+            return(r);
+        }
+        [HttpDelete("[action]")]
+        public async Task<string> Deletebranchconnection(int sid, int bid)
+        {
+            var r = await subjectService.DeleteBranchConnection(sid, bid);
+            return (r);
+        }
+        [HttpGet("[action]")]
+        public async Task<List<BranchDTO>> Getbranchbysub(int id)
+        {
+            var d=await subjectService.GetBranches(id);
+            return d;
         }
 
         // DELETE api/<SubjectController>/5

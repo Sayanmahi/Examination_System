@@ -1,6 +1,7 @@
 ﻿using Examination_System.Data.DTO;
 using Examination_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 
@@ -28,27 +29,84 @@ namespace Examination_System.Data.Services
                 };
                 await context.AddAsync(c);
                 await context.SaveChangesAsync();
-                foreach(var k in name.BranchIds)
+                if (name.BranchIds.Count > 0)
                 {
-                    var p = new BranchSubject()
+                    foreach (var k in name.BranchIds)
                     {
-                        SubjectId = c.Id,
-                        BranchId = k
+                        var p = new BranchSubject()
+                        {
+                            SubjectId = c.Id,
+                            BranchId = k
 
-                    };
-                    await context.AddAsync(p);
-                    await context.SaveChangesAsync();
+                        };
+                        await context.AddAsync(p);
+                        await context.SaveChangesAsync();
 
+                    }
                 }
                 return ("Subject Added Successfully");
             }
         }
+
+        public async Task<string> AddBranchConnection(int sid, int bid)
+        {
+            var t = await context.BranchSubjects.FirstOrDefaultAsync(n => n.BranchId == bid && n.SubjectId == sid);
+            if(t==null)
+            {
+                var b = new BranchSubject()
+                {
+                    SubjectId = sid,
+                    BranchId = bid
+                };
+                await context.AddAsync(b);
+                await context.SaveChangesAsync();
+                return ("Added Successfully");
+            }
+            return ("Connection Already Exists");
+        }
+
         public async Task<string> Delete(int id)
         {
+            var p= await context.BranchSubjects.Where(n=>n.SubjectId==id).ToListAsync();
+            context.BranchSubjects.RemoveRange(p);
+            await context.SaveChangesAsync();
             var d = await context.Subjects.FindAsync(id);
              context.Subjects.Remove(d);
             await context.SaveChangesAsync();
             return ("Deleted Successfully");
+        }
+
+        public async Task<string> DeleteBranchConnection(int sid, int bid)
+        {
+            var t=await context.BranchSubjects.FirstOrDefaultAsync(n=> n.SubjectId==sid && n.BranchId == bid);
+            if (t != null)
+            {
+                context.BranchSubjects.Remove(t);
+                await context.SaveChangesAsync();
+                return ("Connection deleted successfully");
+            }
+            else
+                return ("No Such Connection found");
+        }
+
+        public async Task<List<BranchDTO>> GetBranches(int subid)
+        {
+            var d = await context.BranchSubjects.Where(n=> n.SubjectId==subid).ToListAsync();
+            List<BranchDTO> bb = new List<BranchDTO>();
+            if(d.Count>0)
+            {
+                foreach(var f in d)
+                {
+                    var g = await context.Branches.FirstOrDefaultAsync(n => n.Id == f.BranchId);
+                    var f1 = new BranchDTO()
+                    {
+                        Id = g.Id,
+                        Name = g.Name
+                    };
+                    bb.Add(f1);
+                }
+            }
+            return (bb);
         }
 
         public async Task<IEnumerable<Subject>> Getsub()

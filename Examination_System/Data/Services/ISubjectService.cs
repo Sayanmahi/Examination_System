@@ -11,6 +11,9 @@ namespace Examination_System.Data.Services
         Task<IEnumerable<Subject>> Getsub();
         Task<string> Add(SubjectDTO name);
         Task<string> Delete(int id);
+        Task<string> AddBranchConnection(int sid, int bid);
+        Task<string> DeleteBranchConnection(int sid, int bid);
+        Task<List<BranchDTO>> GetBranches(int subid);
 
     }
 }
