@@ -4,6 +4,7 @@ using Examination_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Examination_System.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230815064138_v7")]
+    partial class v7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,6 +209,9 @@ namespace Examination_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("InstId")
+                        .HasColumnType("int");
+
                     b.Property<int>("InstituteId")
                         .HasColumnType("int");
 
@@ -216,6 +222,9 @@ namespace Examination_System.Migrations
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SubId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
