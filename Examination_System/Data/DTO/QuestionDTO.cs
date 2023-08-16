@@ -1,14 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Examination_System.Models
+﻿namespace Examination_System.Data.DTO
 {
-    public class Question
+    public class QuestionDTO
     {
-        [Key]
-        public int Id { get; set; }
-        //public virtual ICollection<Subject> Subjects { get; set; }
-
         public string Title { get; set; }
         public string Option1 { get; set; }
         public string Option2 { get; set; }
@@ -18,9 +11,5 @@ namespace Examination_System.Models
         public int WrongMark { get; set; }
         public int CorrectMark { get; set; }
         public int SubId { get; set; }
-        [ForeignKey("SubId")]
-        public Subject Subject { get; set; }
-
-
     }
 }

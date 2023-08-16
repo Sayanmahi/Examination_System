@@ -17,6 +17,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
 builder.Services.AddScoped<IInstituteService, InstituteService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
