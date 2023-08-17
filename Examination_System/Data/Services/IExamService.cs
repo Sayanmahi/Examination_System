@@ -9,5 +9,6 @@ namespace Examination_System.Data.Services
         Task StoreAns(TempMarksDTO mark);
         Task UpdateAns(TempMarksDTO mark);
         Task<string> Submit(int uid,int subid);
+        Task<List<ResultDTO>> GetResults(int uid);
     }
 }

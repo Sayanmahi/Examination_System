@@ -40,18 +40,23 @@ namespace Examination_System.Data.Services
         public async Task<string> Submit(int uid, int subid)
         {
             var d= await context.TempMarks.Where(n=> n.UserId==uid && n.SubId==subid).ToListAsync();
-            foreach(var r in d)
+            var g = await context.Questions.Where(n => n.Id == subid).SumAsync(m => m.CorrectMark);
+            var f = 0;
+            foreach (var r in d)
             {
+                f = f + r.Marks;
+            }
+
                 var x = new MarksObt()
                 {
-                    UserId = r.UserId,
-                    SubjectId = r.SubId,
-                    QuesId = r.QuesId,
-                    Total = r.Marks
+                    UserId = uid,
+                    SubjectId = subid,
+                    TotalGot = f,
+                    Total=g
                 };
                 context.MarksObts.Add(x);
                 await context.SaveChangesAsync();
-            }
+            
              context.TempMarks.RemoveRange(d);
             await context.SaveChangesAsync();
             return ("Submitted Successfully");
@@ -72,6 +77,36 @@ namespace Examination_System.Data.Services
             }
             await context.SaveChangesAsync();
 
+        }
+        public async Task<List<ResultDTO>> GetResults(int uid)
+        {
+            var d = await context.MarksObts.Where(n => n.UserId == uid).ToListAsync();
+            List<ResultDTO> rr = new List<ResultDTO>();
+            foreach(var f in d)
+            {
+                var s = await context.Subjects.FirstOrDefaultAsync(n => n.Id == f.SubjectId);
+                decimal g = (((decimal)f.TotalGot /(decimal) f.Total) * 100);
+                var pr = "";
+                if(g>=70)
+                {
+                    pr = "Passed";
+                }
+                else
+                {
+                    pr = "Failed";
+                }
+
+                var c = new ResultDTO()
+                {
+                    SubjectName = s.Name,
+                    MarksGot = f.TotalGot,
+                    TotalMarks = f.Total,
+                    Status = pr,
+                    SubjectPercentage = (decimal)g
+                };
+                rr.Add(c);
+            }
+            return (rr);
         }
     }
 }

@@ -39,6 +39,12 @@ namespace Examination_System.Controllers
             return Ok(d);
 
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetResult(int uid)
+        {
+            var d= await db.GetResults(uid);
+            return Ok(d);
+        }
 
         // PUT api/<MarkController>/5
         [HttpPut("[action]")]
