@@ -132,5 +132,39 @@ namespace Examination_System.Data.Services
             }
             return ("Not Found");
         }
+
+        public async Task<string> Teacherlogin(LoginDTO d)
+        {
+            var g= await db.Teachers.FirstOrDefaultAsync(n=> n.Email==d.Email && n.Password==d.Password);
+            if (g != null)
+            {
+                var f = await db.Subjects.FirstOrDefaultAsync(n => n.Id == g.SubId);
+                var a = JwtGenerateTeacher(d.Email, "Teacher", g.Id, f.Name);
+                return (a);
+            }
+            else
+                return ("Not");
+        }
+        private string JwtGenerateTeacher(string email, string role, int userid,string deptname)
+        {
+            var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
+            var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256); //security key is public key so hashing security key
+            var claims = new[]//dismantling the payload datas
+            {
+                 new Claim("Email",email),
+                 new Claim("UserId",userid.ToString()),
+                 new Claim("DeptName",deptname),
+                 new Claim(ClaimTypes.Role,role)
+                };
+            var token = new JwtSecurityToken(
+                issuer: _config["JWT:Issuer"],
+                audience: _config["JWT:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(60),
+                signingCredentials: credentials
+                );
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
+        }
     }
 }

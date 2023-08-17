@@ -15,11 +15,20 @@ namespace Examination_System.Controllers
         {
             userService = _userService;
         }
-        // GET: api/<UserController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        //// GET: api/<UserController>
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+        [HttpPost("[action]")]
+        public async Task<IActionResult> TeacherLogin(LoginDTO l)
         {
-            return new string[] { "value1", "value2" };
+            var g = await userService.Teacherlogin(l);
+            if (g == "Not")
+                return NotFound("You are not authorized to enter this page");
+            else
+                return Ok(g);
         }
 
         // GET api/<UserController>/5
@@ -83,10 +92,10 @@ namespace Examination_System.Controllers
             return (f);
         }
 
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<UserController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
