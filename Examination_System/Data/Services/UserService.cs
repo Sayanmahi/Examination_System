@@ -166,5 +166,25 @@ namespace Examination_System.Data.Services
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
         }
+
+        public async Task<List<UserdisplayapproveDTO>> Useraskingapproval()
+        {
+            var d= await db.Users.Where(n=> n.Type=="Student" && n.IsActive==0).ToListAsync();
+            List<UserdisplayapproveDTO> dd = new List<UserdisplayapproveDTO>();
+            foreach (var u in d) 
+            {
+                var inst = await db.Institutes.FirstOrDefaultAsync(n => n.Id == u.InstId);
+                var bran = await db.Branches.FirstOrDefaultAsync(n => n.Id == u.BranchsId);
+                var f = new UserdisplayapproveDTO()
+                {
+                    id = u.Id,
+                    name = u.Name,
+                    institute = inst.Name,
+                    branch = bran.Name
+                };
+                dd.Add(f);
+            }
+            return dd;
+        }
     }
 }

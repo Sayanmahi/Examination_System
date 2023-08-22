@@ -97,5 +97,13 @@ namespace Examination_System.Controllers
         //public void Delete(int id)
         //{
         //}
+        [HttpGet("[action]")]
+        public async Task<List<UserdisplayapproveDTO>> UserAskingapproval()
+        {
+            var d = await userService.Useraskingapproval();
+            return d;
+
+        }
     }
+
 }
