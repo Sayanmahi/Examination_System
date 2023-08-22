@@ -58,7 +58,7 @@ namespace Examination_System.Data.Services
                 Email = d.Email,
                 Phone=d.Phone,
                 Password = d.Password,
-                Type = d.Type,
+                Type = "Student",
                 InstId=d.InstId,
                 IsActive=0,
                 BranchsId=d.BranchId
