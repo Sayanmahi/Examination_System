@@ -26,7 +26,7 @@ export default function Subjecthome(){
           }
     function addsubs()
     {
-        navigate('/userapproval');
+        navigate('/addsubjects');
     }
     const deleted=async(e)=>
     {

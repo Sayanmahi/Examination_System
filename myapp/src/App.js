@@ -12,6 +12,7 @@ import Userrequestagain from './Component/InitialPages/Userrequestagain';
 import UserHome from './Component/Userworks/UserHome'
 import Adminhome from './Component/Adminworks/Adminhome';
 import Subjecthome from './Component/Adminworks/Subjects/Subjecthome';
+import Addsubjects from './Component/Adminworks/Subjects/Addsubjects';
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
         <Route path="/userhome" element={<UserHome/>}/>
         <Route path="/adminhome" element={<Adminhome/>}/>
         <Route path="/subjecthome" element={<Subjecthome/>}/>
+        <Route path="/addsubjects" element={<Addsubjects/>}/>
 
 
 
