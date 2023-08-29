@@ -77,7 +77,7 @@ namespace Examination_System.Controllers
                 return ("Not Found");
         }
         [HttpPut("[action]")]
-        public async Task<string> AdminDeny([FromBody] int id)
+        public async Task<string> AdminDeny(int id)
         {
             var f = await userService.AdminDenial(id);
             if (f == "Denied")
@@ -86,9 +86,9 @@ namespace Examination_System.Controllers
                 return ("Not Found");
         }
         [HttpPut("[action]")]
-        public async Task<string> UserAgainRequest([FromBody] int id)
+        public async Task<string> UserAgainRequest(string ema)
         {
-            var f = await userService.UserRequestAgain(id);
+            var f = await userService.UserRequestAgain(ema);
             return (f);
         }
 

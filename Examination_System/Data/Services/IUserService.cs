@@ -10,7 +10,7 @@ namespace Examination_System.Data.Services
         Task<string> AdminLogin(LoginDTO d);
         Task<string> AdminAprroval(int id);
         Task<string> AdminDenial(int id);
-        Task<string> UserRequestAgain(int id);
+        Task<string> UserRequestAgain(string ema);
         Task<string> Teacherlogin(LoginDTO d);
         Task<List<UserdisplayapproveDTO>> Useraskingapproval();
         //Task<string> TeacherAdd(UserDTO d);

@@ -23,7 +23,13 @@ namespace Examination_System.Data.Services
         public async Task<string> Login(LoginDTO d)
         {
             var f=await  db.Users.FirstOrDefaultAsync(n => n.Email==d.Email && n.Password==d.Password);
-            if (f != null)
+            if (f.IsActive == 2)
+            {
+                return ("Inactive");
+            }
+            else if (f.IsActive == 0)
+                return ("Not Approved");
+            else if (f != null)
             {
                 var jw = JwtGenerate(f.Email, f.Type, f.Id);
                 return (jw);
@@ -112,9 +118,9 @@ namespace Examination_System.Data.Services
             return ("Not");
         }
 
-        public async Task<string> UserRequestAgain(int id)
+        public async Task<string> UserRequestAgain(string ema)
         {
-            var d=await db.Users.FirstOrDefaultAsync(n=> n.Id==id);
+            var d=await db.Users.FirstOrDefaultAsync(n=> n.Email==ema);
             if(d!=null)
             {
                 if (d.IsActive == 2)
