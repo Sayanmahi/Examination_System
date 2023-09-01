@@ -39,6 +39,14 @@ export default function Subjecthome(){
         }
 
     }
+    const addbranch=async()=>
+    {
+      navigate("/addbranch");
+    }
+    const ee=async()=>
+    {
+      navigate('/addbranchconnection');
+    }
     return(<>
     <div >
     <Navbar bg="dark" variant="dark">
@@ -47,8 +55,8 @@ export default function Subjecthome(){
 <Nav className="ms-auto">
 {/* <Nav.Link href="#Menu" onClick={mm}>Menu</Nav.Link>  */}
 <Nav.Link href="#ApprovalPending" onClick={addsubs}>Add Subjects</Nav.Link>
-<Nav.Link href="#Subjects" >Subjects</Nav.Link>
-<Nav.Link href="#Branch">Branch</Nav.Link>
+<Nav.Link href="#Subjects" onClick={ee}>Add Branch Connection</Nav.Link>
+<Nav.Link href="#AddBranch" onClick={addbranch}>Add Branch</Nav.Link>
 <Nav.Link href="#Institute" >Institute</Nav.Link>
 {/* <Nav.Link href="#Adminlogin" onClick={adl}>Admin Login</Nav.Link> */}
 

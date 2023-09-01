@@ -13,6 +13,8 @@ import UserHome from './Component/Userworks/UserHome'
 import Adminhome from './Component/Adminworks/Adminhome';
 import Subjecthome from './Component/Adminworks/Subjects/Subjecthome';
 import Addsubjects from './Component/Adminworks/Subjects/Addsubjects';
+import Addbranch from './Component/Adminworks/Subjects/Addbranch';
+import Addbranchconnection from './Component/Adminworks/Subjects/Addbranchconnection';
 function App() {
   return (
     <>
@@ -28,6 +30,9 @@ function App() {
         <Route path="/adminhome" element={<Adminhome/>}/>
         <Route path="/subjecthome" element={<Subjecthome/>}/>
         <Route path="/addsubjects" element={<Addsubjects/>}/>
+        <Route path="/addbranch" element={<Addbranch/>}/>
+        <Route path="/addbranchconnection" element={<Addbranchconnection/>}/>
+
 
 
 
