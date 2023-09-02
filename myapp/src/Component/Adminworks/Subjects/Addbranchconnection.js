@@ -72,10 +72,23 @@ export default function Addbranchconnection(){
         try{
             const d=await axios.post(`https://localhost:7062/api/Subject/Addbranchconnection?sid=${a}&bid=${ac}`);
             alert("Connection established");
+            navigate('/addbranchconnection');
+
         }catch(error)
         {
             alert("Something went wrong");
         }
+    }
+    const del=async(z,x)=>
+    {
+      try
+      {
+        const v=await axios.delete(`https://localhost:7062/api/Subject/Deletebranchconnection?sid=${x}&bid=${z}`);
+        alert("Branch Connection deleted");
+        navigate('/addbranchconnection');
+      }catch{
+         alert("Something went wrong");
+      }
     }
     return(<>
     <div >
@@ -125,6 +138,7 @@ export default function Addbranchconnection(){
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Name</th>
+      <th scope="col">Action</th>
       {/* <th scope="col">Deny</th> */}
     </tr>
   </thead>
@@ -133,6 +147,7 @@ export default function Addbranchconnection(){
     <tr>
       <th scope="row">{option.id}</th>
       <td>{option.name}</td>
+      <button className='btn btn-danger' onClick={()=>del(option.id,a)}>Delete</button>
     </tr>
   ))}
   </tbody>
@@ -153,7 +168,7 @@ export default function Addbranchconnection(){
       ))}
     </select>
     </div>
-    <button className='btn btn-success'onClick={adde}>Add</button>
+    <button className='btn btn-success' onClick={adde}>Add</button>
 
     </>);
 }
