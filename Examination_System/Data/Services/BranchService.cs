@@ -94,6 +94,23 @@ namespace Examination_System.Data.Services
             return (d);
         }
 
+        public async Task<List<BranchDTO>> GetSubbyBranch(int branid)
+        {
+            var d = await context.BranchSubjects.Where(n => n.BranchId == branid).ToListAsync();
+            List<BranchDTO> dd = new List<BranchDTO>();
+            foreach(var i in d)
+            {
+                var f = await context.Subjects.FirstOrDefaultAsync(n => n.Id == i.SubjectId);
+                var x = new BranchDTO()
+                {
+                    Id = f.Id,
+                    Name = f.Name
+                };
+                dd.Add(x);
+            }
+            return (dd);
+        }
+
         public async Task<List<DisplaySubjectsDTO>> GetSubjects(int branid)
         {
             var d = await context.BranchSubjects.Where(n=> n.BranchId==branid).ToListAsync();

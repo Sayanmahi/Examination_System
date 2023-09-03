@@ -15,6 +15,9 @@ import Subjecthome from './Component/Adminworks/Subjects/Subjecthome';
 import Addsubjects from './Component/Adminworks/Subjects/Addsubjects';
 import Addbranch from './Component/Adminworks/Subjects/Addbranch';
 import Addbranchconnection from './Component/Adminworks/Subjects/Addbranchconnection';
+import Branchhome from './Component/Adminworks/Branches/Branchhome';
+import Addsubjectconnection from './Component/Adminworks/Branches/Addsubjectconnection';
+
 function App() {
   return (
     <>
@@ -32,6 +35,8 @@ function App() {
         <Route path="/addsubjects" element={<Addsubjects/>}/>
         <Route path="/addbranch" element={<Addbranch/>}/>
         <Route path="/addbranchconnection" element={<Addbranchconnection/>}/>
+        <Route path="/branchhome" element={<Branchhome/>}/>
+        <Route path="/addsubjectconnection" element={<Addsubjectconnection/>}/>
 
 
 

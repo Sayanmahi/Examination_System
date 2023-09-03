@@ -55,10 +55,17 @@ namespace Examination_System.Controllers
 
         // DELETE api/<BranchController>/5
         [HttpDelete("[action]")]
-        public async Task<IActionResult> Delete([FromBody] int id)
+        public async Task<IActionResult> DeleteBranch(int id)
         {
             var d = await db.Delete(id);
             return Ok(d);
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetSubbyBranch(int id)
+        {
+            var d = await db.GetSubbyBranch(id);
+            return Ok(d);
+        }
+
     }
 }

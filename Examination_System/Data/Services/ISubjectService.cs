@@ -13,7 +13,7 @@ namespace Examination_System.Data.Services
         Task<string> Delete(int id);
         Task<string> AddBranchConnection(int sid, int bid);
         Task<string> DeleteBranchConnection(int sid, int bid);
-        Task<List<BranchDTO>> GetBranches(int subid);
+        Task<List<BranchDTO>> GetBranches(int branid);
 
     }
 }

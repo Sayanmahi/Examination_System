@@ -13,6 +13,10 @@ export default function Adminhome(){
     {
         navigate('/subjecthome');
     }
+    function branhome()
+    {
+        navigate('/branchhome');
+    }
     return(<>
     <div >
     <Navbar bg="dark" variant="dark">
@@ -22,7 +26,7 @@ export default function Adminhome(){
 {/* <Nav.Link href="#Menu" onClick={mm}>Menu</Nav.Link>  */}
 <Nav.Link href="#ApprovalPending" onClick={userapp}>Approvals Pending</Nav.Link>
 <Nav.Link href="#Subjects" onClick={subhome}>Subjects</Nav.Link>
-<Nav.Link href="#Branch">Branch</Nav.Link>
+<Nav.Link href="#Branch" onClick={branhome}>Branch</Nav.Link>
 <Nav.Link href="#Institute" >Institute</Nav.Link>
 {/* <Nav.Link href="#Adminlogin" onClick={adl}>Admin Login</Nav.Link> */}
 

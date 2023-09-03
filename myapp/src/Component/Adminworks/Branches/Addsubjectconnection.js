@@ -20,20 +20,21 @@ export default function Addbranchconnection(){
       const fetchBranches = async () => {
         try {
           const response = await fetch(
-            "https://localhost:7062/api/Branch/GetAllBranches"
+            "https://localhost:7062/api/Subject/GetSubjects"
           ); // Replace with your API endpoint
           const data = await response.json();
           bb(data); // Set the received data as options
         } catch (error) {
           console.error("Error fetching options:", error);
         }
+        console.log("Bbbbbbbbbbbbbbbbbb "+b);
       };
         useEffect(() => {
             fetchOptions(); // Fetch options when the component mounts
           }, []);
           const fetchOptions=async()=>
           {
-                const d=await fetch('https://localhost:7062/api/Subject/GetSubjects');
+                const d=await fetch('https://localhost:7062/api/Branch/GetAllBranches');
                 const data = await d.json();
                 console.log(d);
                 console.log(data);
@@ -53,7 +54,7 @@ export default function Addbranchconnection(){
         bbname(y);
         ap(e);
         try{
-        const d= await fetch(`https://localhost:7062/api/Subject/Getbranchbysub?id=${e}`);
+        const d= await fetch(`https://localhost:7062/api/Branch/GetSubbyBranch?id=${e}`);
         const data= await d.json();
         setbranches(data);
 
@@ -69,10 +70,12 @@ export default function Addbranchconnection(){
     }
     const adde=async()=>
     {
+        console.log("SID "+ac);
+        console.log("BID "+a)
         try{
-            const d=await axios.post(`https://localhost:7062/api/Subject/Addbranchconnection?sid=${a}&bid=${ac}`);
+            const d=await axios.post(`https://localhost:7062/api/Branch/AddSubjecttoBranch/${ac}/${a}`);
             alert("Connection established");
-            navigate('/addbranchconnection');
+            navigate('/addsubjectconnection');
 
         }catch(error)
         {
@@ -83,9 +86,9 @@ export default function Addbranchconnection(){
     {
       try
       {
-        const v=await axios.delete(`https://localhost:7062/api/Subject/Deletebranchconnection?sid=${x}&bid=${z}`);
+        const v=await axios.delete(`https://localhost:7062/api/Branch/Delete/${z}/${x}`);
         alert("Branch Connection deleted");
-        navigate('/addbranchconnection');
+        navigate('/addsubjectconnection');
       }catch{
          alert("Something went wrong");
       }
@@ -108,7 +111,7 @@ export default function Addbranchconnection(){
 </Navbar>
 {/* <div className="CoverImg"></div> */}
 </div>
- <h1>All Subjects</h1>
+ <h1>All Branches</h1>
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -123,14 +126,14 @@ export default function Addbranchconnection(){
     <tr>
       <th scope="row">{option.id}</th>
       <td>{option.name}</td>
-      <td type="button" class="btn btn-success" onClick={() => Addbran(option.id,option.name)} >Add Branch</td>
+      <td type="button" class="btn btn-success" onClick={() => Addbran(option.id,option.name)} >Add Subject</td>
     </tr>
   ))}
   </tbody>
     </table>
 
 
-    <h1>Subject:-{bname}</h1>
+    <h1>Branch:-{bname}</h1>
 <table class="table">
   <thead class="thead-dark">
     <tr>

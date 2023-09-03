@@ -11,5 +11,6 @@ namespace Examination_System.Data.Services
         Task<string> AddSubjectConnection(int sid, int bid);
         Task<string> DeleteSubjectConnection(int sid, int bid);
         Task<List<DisplaySubjectsDTO>> GetSubjects(int branid);
+        Task<List<BranchDTO>> GetSubbyBranch(int subid);
     }
 }
