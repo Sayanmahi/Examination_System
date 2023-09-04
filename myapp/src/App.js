@@ -17,7 +17,9 @@ import Addbranch from './Component/Adminworks/Subjects/Addbranch';
 import Addbranchconnection from './Component/Adminworks/Subjects/Addbranchconnection';
 import Branchhome from './Component/Adminworks/Branches/Branchhome';
 import Addsubjectconnection from './Component/Adminworks/Branches/Addsubjectconnection';
-
+import Institutehome from './Component/Adminworks/Institute/Institutehome';
+import Addinstitute from './Component/Adminworks/Institute/Addinstitute';
+import Modifyinstitute from './Component/Adminworks/Institute/Modifyinstitute';
 function App() {
   return (
     <>
@@ -37,6 +39,9 @@ function App() {
         <Route path="/addbranchconnection" element={<Addbranchconnection/>}/>
         <Route path="/branchhome" element={<Branchhome/>}/>
         <Route path="/addsubjectconnection" element={<Addsubjectconnection/>}/>
+        <Route path="/institutehome" element={<Institutehome/>}/>
+        <Route path="/addinstitute" element={<Addinstitute/>}/>
+        <Route path="/modifyinstitute" element={<Modifyinstitute/>}/>
 
 
 

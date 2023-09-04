@@ -17,6 +17,10 @@ export default function Adminhome(){
     {
         navigate('/branchhome');
     }
+    function insthome()
+    {
+        navigate('/institutehome');
+    }
     return(<>
     <div >
     <Navbar bg="dark" variant="dark">
@@ -27,7 +31,7 @@ export default function Adminhome(){
 <Nav.Link href="#ApprovalPending" onClick={userapp}>Approvals Pending</Nav.Link>
 <Nav.Link href="#Subjects" onClick={subhome}>Subjects</Nav.Link>
 <Nav.Link href="#Branch" onClick={branhome}>Branch</Nav.Link>
-<Nav.Link href="#Institute" >Institute</Nav.Link>
+<Nav.Link href="#Institute" onClick={insthome}>Institute</Nav.Link>
 {/* <Nav.Link href="#Adminlogin" onClick={adl}>Admin Login</Nav.Link> */}
 
 
