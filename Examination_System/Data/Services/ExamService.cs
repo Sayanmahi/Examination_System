@@ -108,5 +108,23 @@ namespace Examination_System.Data.Services
             }
             return (rr);
         }
+
+        public async Task<List<SubDTO>> GetSubbyBid(int branid)
+        {
+            var d = await context.BranchSubjects.Where(n => n.BranchId == branid).ToListAsync();
+            List<SubDTO> dd = new List<SubDTO>();
+            foreach (var i in d)
+            {
+                var f = await context.Subjects.FirstOrDefaultAsync(n => n.Id == i.SubjectId);
+                var x = new SubDTO()
+                {
+                    id = f.Id,
+                    name = f.Name
+                };
+                dd.Add(x);
+            }
+            return dd;
+        }
     }
 }
+

@@ -31,7 +31,7 @@ namespace Examination_System.Data.Services
                 return ("Not Approved");
             else if (f != null)
             {
-                var jw = JwtGenerate(f.Email, f.Type, f.Id);
+                var jw = JwtGenerate(f.Email, f.Type, f.Id,f.BranchsId);
                 return (jw);
             }
             else
@@ -42,7 +42,7 @@ namespace Examination_System.Data.Services
             var f= await db.Users.FirstOrDefaultAsync(n=>n.Email==d.Email && n.Password==d.Password);
             if (f != null)
             {
-                var jw=JwtGenerate(f.Email,f.Type, f.Id);   
+                var jw=JwtGenerate(f.Email,f.Type, f.Id,f.BranchsId);   
                 return (jw);
             }
             else
@@ -73,7 +73,7 @@ namespace Examination_System.Data.Services
             await db.SaveChangesAsync();
             return ("Done");
         }
-        private string JwtGenerate(string email, string role, int userid)
+        private string JwtGenerate(string email, string role, int userid,int bid)
         {
             var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
             var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256); //security key is public key so hashing security key
@@ -81,6 +81,7 @@ namespace Examination_System.Data.Services
             {
                  new Claim("Email",email),
                  new Claim("UserId",userid.ToString()),
+                 new Claim("BranchId",bid.ToString()),
                  new Claim(ClaimTypes.Role,role)
                 };
             var token = new JwtSecurityToken(

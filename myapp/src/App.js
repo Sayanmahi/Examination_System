@@ -20,6 +20,7 @@ import Addsubjectconnection from './Component/Adminworks/Branches/Addsubjectconn
 import Institutehome from './Component/Adminworks/Institute/Institutehome';
 import Addinstitute from './Component/Adminworks/Institute/Addinstitute';
 import Modifyinstitute from './Component/Adminworks/Institute/Modifyinstitute';
+import Allsubs from './Component/Userworks/Allsubs';
 function App() {
   return (
     <>
@@ -42,6 +43,7 @@ function App() {
         <Route path="/institutehome" element={<Institutehome/>}/>
         <Route path="/addinstitute" element={<Addinstitute/>}/>
         <Route path="/modifyinstitute" element={<Modifyinstitute/>}/>
+        <Route path="/allsubs" element={<Allsubs/>}/>
 
 
 

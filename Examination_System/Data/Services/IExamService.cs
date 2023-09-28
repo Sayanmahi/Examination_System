@@ -6,6 +6,7 @@ namespace Examination_System.Data.Services
     public interface IExamService
     {
         Task<List<Question>> GetQuestions(int subid);
+        Task<List<SubDTO>> GetSubbyBid(int bid);
         Task StoreAns(TempMarksDTO mark);
         Task UpdateAns(TempMarksDTO mark);
         Task<string> Submit(int uid,int subid);

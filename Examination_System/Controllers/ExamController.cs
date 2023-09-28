@@ -53,5 +53,11 @@ namespace Examination_System.Controllers
             await db.UpdateAns(value);
             return Ok();
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetSubsbybid(int bid)
+        {
+            var d=await db.GetSubbyBid(bid);
+            return Ok(d);
+        }
     }
 }
