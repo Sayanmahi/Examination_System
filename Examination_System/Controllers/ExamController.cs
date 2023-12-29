@@ -59,9 +59,5 @@ namespace Examination_System.Controllers
             var d=await db.GetSubbyBid(bid);
             return Ok(d);
         }
-        private void ff()
-        {
-
-        }
     }
 }
