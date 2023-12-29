@@ -60,7 +60,7 @@ namespace Examination_System.Controllers
         [HttpDelete("[action]")]
         public async Task<IActionResult> Delete(int id)
         {
-            var d= await db.DeleteTeacher(id);
+            var d = await db.DeleteTeacher(id);
             return Ok(d);
         }
     }
