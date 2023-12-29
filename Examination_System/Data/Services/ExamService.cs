@@ -21,20 +21,29 @@ namespace Examination_System.Data.Services
         public async Task StoreAns(TempMarksDTO mark)
         {
             var c = 0;
-            var markss= await context.Questions.FirstOrDefaultAsync(n=> n.SubId==mark.SubId && n.Id==mark.QuesId);
-            if (markss.CorrectId == mark.Option)
-                c = markss.CorrectMark;
-            else
-                c = -markss.WrongMark;
-            var d = new TempMark()
+            var ed = await context.TempMarks.FirstOrDefaultAsync(n => n.SubId == mark.SubId && n.UserId == mark.UserId && n.QuesId == mark.QuesId);
+            if (ed != null)
             {
-                UserId = mark.UserId,
-                SubId = mark.SubId,
-                QuesId = mark.QuesId,
-                Marks = c
-            };
-            await context.AddAsync(d);
-            await context.SaveChangesAsync();
+                ExamService obv = new ExamService(context);
+                obv.UpdateAns(mark);
+            }
+            else
+            {
+                var markss = await context.Questions.FirstOrDefaultAsync(n => n.SubId == mark.SubId && n.Id == mark.QuesId);
+                if (markss.CorrectId == mark.Option)
+                    c = markss.CorrectMark;
+                else
+                    c = -markss.WrongMark;
+                var d = new TempMark()
+                {
+                    UserId = mark.UserId,
+                    SubId = mark.SubId,
+                    QuesId = mark.QuesId,
+                    Marks = c
+                };
+                await context.AddAsync(d);
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task<string> Submit(int uid, int subid)

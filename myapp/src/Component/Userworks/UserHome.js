@@ -9,6 +9,10 @@ export default function Userlogin(){
     {
         navigate('/allsubs');
     }
+    function result()
+    {
+        navigate('/results');
+    }
     return(<>
     <div >
     <Navbar bg="dark" variant="dark">
@@ -17,9 +21,7 @@ export default function Userlogin(){
 <Nav className="ms-auto">
 {/* <Nav.Link href="#Menu" onClick={mm}>Menu</Nav.Link>  */}
 <Nav.Link href="#seesubs" onClick={seesub}>See Subjects</Nav.Link>
-<Nav.Link href="#Userlogin" >User Login</Nav.Link>
-<Nav.Link href="#Adminlogin">Admin Login</Nav.Link>
-<Nav.Link href="#Teacherlogin" >Teacher Login</Nav.Link>
+<Nav.Link href="#Results" onClick={result}>Results</Nav.Link>
 {/* <Nav.Link href="#Adminlogin" onClick={adl}>Admin Login</Nav.Link> */}
 
 

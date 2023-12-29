@@ -91,7 +91,7 @@ export default function()
                   <MDBIcon fas icon="cubes fa-3x me-3"  style={{ color: '#ff6219' }}/>
                 </div> */}
   
-                <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Teacher Sign</h5>
+                <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Student Register</h5>
                 <MDBInput wrapperClass='mb-4' label='Name' id='formControlLg' type='text' size="lg" ref={nameref}/>
                 <MDBInput wrapperClass='mb-4' label='Phone Number' id='formControlLg' type='text' size="lg" ref={phoneref}/>
 
@@ -104,7 +104,7 @@ export default function()
                  
                   }
                   }>
-              <option value="">Select an option</option>
+              <option value="">Select an Institute</option>
               {institutes && institutes.map((option) => (
                 <option key={option.id} value={option.id}>
                   {option.name}
@@ -119,7 +119,7 @@ export default function()
                  
                   }
                   }>
-              <option value="">Select an option</option>
+              <option value="">Select the Branch</option>
               {branches && branches.map((option) => (
                 <option key={option.id} value={option.id}>
                   {option.name}

@@ -28,6 +28,11 @@ export default function Subjecthome(){
         //         alert('Something went wrong!! Please retry later');
         //     }
           }
+          function ques(id)
+          {
+            localStorage.setItem("subid",id);
+            navigate('/exampage');
+          }
           return(
             <>
             <h1>All Subjects</h1>
@@ -44,7 +49,7 @@ export default function Subjecthome(){
   {Subjects.map((option) => (
     <tr>
       <td>{option.name}</td>
-      <td type="button" class="btn btn-danger">Appear for this paper</td>
+      <td type="button" class="btn btn-danger" onClick={() => ques(option.id)}>Appear for this paper</td>
     </tr>
   ))}
   </tbody>
