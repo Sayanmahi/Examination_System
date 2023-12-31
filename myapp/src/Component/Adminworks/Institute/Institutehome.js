@@ -17,7 +17,7 @@ export default function Subjecthome(){
                 const d=await fetch('https://localhost:7062/api/Institute/GetAll');
                 const data = await d.json();
                 console.log(d);
-                console.log(data);
+                console.log(d.data);
                 storedd(data);
     
         //     }catch(error)

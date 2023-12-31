@@ -42,6 +42,13 @@ namespace Examination_System.Data.Services
             return ("No such Question Exists");
         }
 
+        public async Task<Question> GetQuestionbyId(int id)
+        {
+            var d = await appDbContext.Questions.FirstOrDefaultAsync(n => n.Id == id);
+                return d;
+            
+        }
+
         public async Task<List<Question>> GetQuestionBysubId(int id)
         {
             var d = await appDbContext.Questions.Where(n => n.SubId == id).ToListAsync();

@@ -9,6 +9,7 @@ namespace Examination_System.Data.Services
         Task<string> DeleteQues(int id);
         Task<string> Modify(int id, QuestionDTO q);
         Task<List<Question>> GetQuestionBysubId(int id);
+        Task<Question> GetQuestionbyId(int id);
 
     }
 }

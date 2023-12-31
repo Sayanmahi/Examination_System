@@ -23,6 +23,9 @@ import Modifyinstitute from './Component/Adminworks/Institute/Modifyinstitute';
 import Allsubs from './Component/Userworks/Allsubs';
 import Exampage from './Component/Userworks/Exampage';
 import Results from './Component/Userworks/Results'
+import Teacherhome from './Component/Adminworks/Teacher/Teacherhome';
+import Addmodify from './Component/Adminworks/Teacher/Addmodify';
+import Modifyquestion from './Component/Adminworks/Teacher/Modiyquestion';
 function App() {
   return (
     <>
@@ -48,6 +51,9 @@ function App() {
         <Route path="/allsubs" element={<Allsubs/>}/>
         <Route path="/exampage" element={<Exampage/>}/>
         <Route path="/results" element={<Results/>}/>
+        <Route path="/teacherhome" element={<Teacherhome/>}/>
+        <Route path="/addmodify" element={<Addmodify/>}/>
+        <Route path="modifyquestion" element={<Modifyquestion/>}/>
 
 
 

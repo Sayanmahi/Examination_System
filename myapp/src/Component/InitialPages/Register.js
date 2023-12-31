@@ -14,8 +14,10 @@ import {
 from 'mdb-react-ui-kit';
 import '../../App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from 'react-router-dom';
 export default function()
 {
+  const navigate=useNavigate();
     const nameref=useRef('');
     const phoneref=useRef('');
     const emailref=useRef('');
@@ -70,6 +72,8 @@ export default function()
         console.log(data);
         try{
           const d= axios.post('https://localhost:7062/api/User/Register',data);
+          alert("Registered Successfully");
+          navigate('/userlogin');
           console.log(d);
         }catch{
           console.log("something went wrong");

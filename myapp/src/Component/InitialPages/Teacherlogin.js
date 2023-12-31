@@ -14,7 +14,9 @@ from 'mdb-react-ui-kit';
 import '../../App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 export default function Teacherlogin(){
+  const navigate=useNavigate();
     const emailref=useRef('');
     const passwordref=useRef('');
     const sub=async()=>
@@ -33,6 +35,7 @@ export default function Teacherlogin(){
           {
             alert("Login successfull");
             localStorage.setItem("teachertoken",d.data);
+            navigate('/teacherhome');
           }
 
         }catch(error)

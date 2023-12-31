@@ -1,5 +1,6 @@
 ﻿using Examination_System.Data.DTO;
 using Examination_System.Data.Services;
+using Examination_System.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,19 +18,20 @@ namespace Examination_System.Controllers
         }
         // GET: api/<QuestionController>
         [HttpPost("[action]")]
-        public async Task<IActionResult> GetQuestionsbySubId([FromBody]int id)
+        public async Task<IActionResult> GetQuestionsbySubId(int id)
         {
             var d = await questionService.GetQuestionBysubId(id);
             return Ok(d);
 
         }
 
-        //// GET api/<QuestionController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+      
+        [HttpGet("[action]")]
+        public async Task<Question> Getquestionbyid(int id)
+       {
+          var d= await questionService.GetQuestionbyId(id);
+            return d;
+        }
 
         // POST api/<QuestionController>
         [HttpPost("[action]")]
