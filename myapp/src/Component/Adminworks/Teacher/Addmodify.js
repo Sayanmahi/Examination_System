@@ -3,10 +3,11 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Routes, Route, useNavigate,createSearchParams} from 'react-router-dom';
+import {Routes, Route, useNavigate,createSearchParams,useSearchParams} from 'react-router-dom';
 import axios from 'axios';
-export default function Addmodify() {
+export default function Addmodify(props) {
   const navigate=useNavigate();
+  const [searchparams]=useSearchParams();
     const idref=useRef('');
     const titleref=useRef('');
     const opt1ref=useRef('');
@@ -24,7 +25,7 @@ export default function Addmodify() {
     const fetchfunction=async()=>
     {
         const p=1;
-        const d=await axios.post(`https://localhost:7062/api/Question/GetQuestionsbySubId?id=${p}`);
+        const d=await axios.post(`https://localhost:7062/api/Question/GetQuestionsbySubId?id=${searchparams.get("id")}`);
         console.log(d.data);
         datastate(d.data);
     }

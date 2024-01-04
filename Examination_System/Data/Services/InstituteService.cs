@@ -47,10 +47,17 @@ namespace Examination_System.Data.Services
                 Phone = tt.Phone,
                 Email = tt.Email,
                 InstId = tt.Instid,
-                SubId = tt.Subid,
+                //SubId = tt.Subid,
                 Password=tt.Password
             };
+
             await appDbContext.Teachers.AddAsync(d);
+            var p = new TeacherSubject()
+            {
+                TeacherId = d.Id,
+                SubjectId = tt.Subid
+            };
+            await appDbContext.TeacherSubjects.AddAsync(p);
             await appDbContext.SaveChangesAsync();
             return ("Teacher added Successfully");
         }
@@ -80,6 +87,19 @@ namespace Examination_System.Data.Services
         {
             var d = await appDbContext.Institutes.FirstOrDefaultAsync(n => n.Id == id);
             return (d);
+        }
+
+        public async Task<List<Subject>> ShowmysubjectsByTeacherId(int id)
+        {
+            var d = await appDbContext.TeacherSubjects.Where(n => n.TeacherId == id).ToListAsync();
+            List<Subject> subjects = new List<Subject>();
+            foreach(var i in d)
+            {
+                var p = await appDbContext.Subjects.FirstOrDefaultAsync(n => n.Id == i.SubjectId);
+                subjects.Add(p);
+            }
+            return (subjects);
+
         }
 
         public async Task<string> UpdateInst(int id,InstDTO inst)

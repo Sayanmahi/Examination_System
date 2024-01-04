@@ -145,14 +145,14 @@ namespace Examination_System.Data.Services
             var g= await db.Teachers.FirstOrDefaultAsync(n=> n.Email==d.Email && n.Password==d.Password);
             if (g != null)
             {
-                var f = await db.Subjects.FirstOrDefaultAsync(n => n.Id == g.SubId);
-                var a = JwtGenerateTeacher(d.Email, "Teacher", g.Id, f.Name);
+                //var f = await db.Subjects.FirstOrDefaultAsync(n => n.Id == g.SubId);
+                var a = JwtGenerateTeacher(d.Email, "Teacher", g.Id);
                 return (a);
             }
             else
                 return ("Not");
         }
-        private string JwtGenerateTeacher(string email, string role, int userid,string deptname)
+        private string JwtGenerateTeacher(string email, string role, int userid)
         {
             var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
             var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256); //security key is public key so hashing security key
@@ -160,7 +160,7 @@ namespace Examination_System.Data.Services
             {
                  new Claim("Email",email),
                  new Claim("UserId",userid.ToString()),
-                 new Claim("DeptName",deptname),
+                 //new Claim("DeptName",deptname),
                  new Claim(ClaimTypes.Role,role)
                 };
             var token = new JwtSecurityToken(

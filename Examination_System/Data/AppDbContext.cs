@@ -26,6 +26,7 @@ namespace Examination_System.Data
         public DbSet<TempMark> TempMarks { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<TeacherSubject> TeacherSubjects { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

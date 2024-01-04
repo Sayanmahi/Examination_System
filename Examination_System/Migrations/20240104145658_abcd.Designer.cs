@@ -3,6 +3,7 @@ using Examination_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Examination_System.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240104145658_abcd")]
+    partial class abcd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,29 +228,6 @@ namespace Examination_System.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("Examination_System.Models.TeacherSubject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubjectId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("TeacherSubjects");
-                });
-
             modelBuilder.Entity("Examination_System.Models.TempMark", b =>
                 {
                     b.Property<int>("Id")
@@ -383,25 +363,6 @@ namespace Examination_System.Migrations
                         .IsRequired();
 
                     b.Navigation("Institutes");
-                });
-
-            modelBuilder.Entity("Examination_System.Models.TeacherSubject", b =>
-                {
-                    b.HasOne("Examination_System.Models.Subject", "Subjects")
-                        .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Examination_System.Models.Teacher", "Teachers")
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subjects");
-
-                    b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("Examination_System.Models.TempMark", b =>

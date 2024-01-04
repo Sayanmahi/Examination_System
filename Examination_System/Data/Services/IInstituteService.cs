@@ -11,6 +11,7 @@ namespace Examination_System.Data.Services
         Task<string> UpdateInst(int id,InstDTO inst);
         Task<string> AddTeacher(TeacherDTO tt);
         Task<string> DeleteTeacher(int id);
+        Task<List<Subject>> ShowmysubjectsByTeacherId(int id);
 
     }
 }

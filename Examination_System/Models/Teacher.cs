@@ -11,9 +11,9 @@ namespace Examination_System.Models
         [ForeignKey("Institutes")]
         public int InstId { get; set; }
         public Institute Institutes { get; set; }
-        [ForeignKey("Subjects")]
-        public int SubId { get; set; }
-        public Subject Subjects { get; set; }
+        //[ForeignKey("Subjects")]
+        //public int SubId { get; set; }
+        //public Subject Subjects { get; set; }
         public string Password { get; set; }
     }
 }

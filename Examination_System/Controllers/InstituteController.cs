@@ -25,6 +25,12 @@ namespace Examination_System.Controllers
             var d=await db.GetAll();
             return d;
         }
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<Subject>> GetMySubjectsByTeacherId(int id)
+        {
+            var d = await db.ShowmysubjectsByTeacherId(id);
+            return (d);
+        }
 
         // GET api/<InstituteController>/5
         [HttpGet("{id}")]
