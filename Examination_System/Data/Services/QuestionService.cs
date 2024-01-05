@@ -37,6 +37,7 @@ namespace Examination_System.Data.Services
             if(d!=null)
             {
                 appDbContext.Remove(d);
+                appDbContext.SaveChangesAsync();
                 return ("Deleted Successfully");
             }
             return ("No such Question Exists");

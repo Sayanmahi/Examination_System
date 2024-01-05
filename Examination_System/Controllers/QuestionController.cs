@@ -51,7 +51,7 @@ namespace Examination_System.Controllers
 
         // DELETE api/<QuestionController>/5
         [HttpDelete("[action]")]
-        public async Task<IActionResult> Delete([FromBody]int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var d= await questionService.DeleteQues(id);
             return Ok(d);

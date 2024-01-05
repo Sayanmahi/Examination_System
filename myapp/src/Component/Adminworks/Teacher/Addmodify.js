@@ -24,10 +24,16 @@ export default function Addmodify(props) {
     },[]);
     const fetchfunction=async()=>
     {
-        const p=1;
         const d=await axios.post(`https://localhost:7062/api/Question/GetQuestionsbySubId?id=${searchparams.get("id")}`);
         console.log(d.data);
         datastate(d.data);
+    }
+    const del=async(e)=>
+    {
+      console.log(e);
+       const d= await axios.delete(`https://localhost:7062/api/Question/Delete?id=${e}`);
+       console.log("eeeeeeeeeeeeeeeeeee",d);
+       navigate('/teacherhome');
     }
     function modify(e)
     {
@@ -69,7 +75,7 @@ export default function Addmodify(props) {
       <td>{option.wrongMark}</td>
       <td>{option.correctMark}</td>
       <td><button class="btn btn-success" onClick={() => modify(option.id)}>Edit</button>
-      <button class="btn btn-danger">Delete</button></td>
+      <button class="btn btn-danger" onClick={() => del(option.id)}>Delete</button></td>
     </tr>
   ))}
   </tbody>
