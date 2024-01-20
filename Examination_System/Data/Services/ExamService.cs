@@ -33,7 +33,7 @@ namespace Examination_System.Data.Services
                 if (markss.CorrectId == mark.Option)
                     c = markss.CorrectMark;
                 else
-                    c = -markss.WrongMark;
+                    c = markss.WrongMark;
                 var d = new TempMark()
                 {
                     UserId = mark.UserId,
@@ -49,7 +49,7 @@ namespace Examination_System.Data.Services
         public async Task<string> Submit(int uid, int subid)
         {
             var d= await context.TempMarks.Where(n=> n.UserId==uid && n.SubId==subid).ToListAsync();
-            var g = await context.Questions.Where(n => n.Id == subid).SumAsync(m => m.CorrectMark);
+            var g = await context.Questions.Where(n => n.SubId == subid).SumAsync(m => m.CorrectMark);
             var f = 0;
             foreach (var r in d)
             {

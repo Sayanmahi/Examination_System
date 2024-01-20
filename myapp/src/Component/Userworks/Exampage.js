@@ -44,19 +44,21 @@ export default function Exampage(){
         subid={gg}
         uid={decoded.UserId}
         />);
-      const handleChange = (e) => {
-        setval(e.target.value);
+      const submit = async() => {
+       var d= await axios.post(`https://localhost:7062/api/Exam/Submit?uid=${decoded.UserId}&subid=${gg}`);
+       window.alert("Completed the Exam");
+       navigate('/results');
       };
-      const handleChange1= async(t) =>
-      {
-        const d={
-          UserId:decoded.UserId,
-          SubId:gg,
-          QuesId:t,
-          Option:val
-        };
-        console.log(d);
-      }
+      // const handleChange1= async(t) =>
+      // {
+      //   const d={
+      //     UserId:decoded.UserId,
+      //     SubId:gg,
+      //     QuesId:t,
+      //     Option:val
+      //   };
+      //   console.log(d);
+      // }
     return(
         <>
         <h2>Choose a option for each each question</h2>
@@ -92,7 +94,7 @@ export default function Exampage(){
   </tbody>
     </table> */}
     {qq}
-    <button className='btn btn-success'>SUBMIT</button>
+    <button className='btn btn-success' onClick={submit}>SUBMIT</button>
         </>
     )
 }

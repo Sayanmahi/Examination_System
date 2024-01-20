@@ -21,22 +21,20 @@ export default function Teacherhome() {
     {
         const d=await axios.get(`https://localhost:7062/api/Institute/GetMySubjectsByTeacherId?id=${decoded.UserId}`);
         substate(d.data);
-        console.log(d);
-        console.log("stateabc",sub);
     }
 
-    function userlogin()
-    {
-        navigate("/addmodify");
-    }
-    function adminlog()
-    {
-        navigate("/adminlogin");
-    }
-    function studreg()
-    {
-        navigate("/register");
-    }
+    // function userlogin()
+    // {
+    //     navigate("/addmodify");
+    // }
+    // function adminlog()
+    // {
+    //     navigate("/adminlogin");
+    // }
+    // function studreg()
+    // {
+    //     navigate("/register");
+    // }
     function modify(e)
     {
         navigate({
