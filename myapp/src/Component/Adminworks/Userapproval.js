@@ -6,16 +6,27 @@ export default function(){
   const navigate=useNavigate();
 const [Names,storedd]=useState([]);
 const [userid,setuserid]=useState();
+const abc1=localStorage.getItem('admintoken');
     useEffect(() => {
         fetchOptions(); // Fetch options when the component mounts
       }, []);
       const fetchOptions=async()=>
       {
-            const d=await fetch('https://localhost:7062/api/User/UserAskingapproval');
-            const data = await d.json();
+        console.log(abc1);
+        try{
+            const d=await axios.get(`https://localhost:7062/api/User/UserAskingapproval`,{
+              headers:{
+                'Authorization': `Bearer ${abc1}`
+            }
+            });
             console.log(d);
-            console.log(data);
-            storedd(data);
+            storedd(d.data);
+        }
+        catch(e)
+        {
+            alert("you are not an Admin!");
+            navigate("/");
+        }
 
     //     }catch(error)
     //     {
@@ -24,13 +35,33 @@ const [userid,setuserid]=useState();
       }
       const approved=async(e)=>
       {
-        const d= await axios.put(`https://localhost:7062/api/User/AdminApprove?id=${e}`);
+        try{
+        const d= await axios.put(`https://localhost:7062/api/User/AdminApprove?id=${e}`,{
+          headers:{
+            'Authorization': `Bearer ${abc1}`
+          }
+        });
         window.location.reload();
+        }catch(e)
+        {
+          alert('Unauthorised access');
+          navigate('/');
+        }
       }
       const Deny=async(e)=>
       {
-        const d= await axios.put(`https://localhost:7062/api/User/AdminDeny?id=${e}`);
+        try{
+        const d= await axios.put(`https://localhost:7062/api/User/AdminDeny?id=${e}`,{
+          headers:{
+            'Authorization': `Bearer ${abc1}`
+          }
+        });
         window.location.reload();
+        }catch(e)
+        {
+          alert('Unauthorised access');
+          navigate('/');
+        }
       }
       return(
         <>

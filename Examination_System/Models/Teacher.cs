@@ -15,5 +15,6 @@ namespace Examination_System.Models
         //public int SubId { get; set; }
         //public Subject Subjects { get; set; }
         public string Password { get; set; }
+        public string Role { get; set; }
     }
 }

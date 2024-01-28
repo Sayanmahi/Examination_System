@@ -14,7 +14,7 @@ from 'mdb-react-ui-kit';
 import '../../App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,createSearchParams } from 'react-router-dom';
 export default function Userlogin(){
   const navigate=useNavigate();
   const emailref=useRef('');
@@ -30,6 +30,7 @@ export default function Userlogin(){
         if(d.data=="Please register")
         {
         alert("Wrong credentials");
+        navigate('/userlogin');
         }
         if(d.data=="Not Approved")
         {
@@ -37,7 +38,13 @@ export default function Userlogin(){
         }
         else if(d.data=="Inactive")
         {
-            navigate("/requestagain");
+          navigate({
+            pathname:'/requestagain',
+            search:createSearchParams({
+            emailid:emailref.current.value
+            }).toString()
+        });
+            // navigate("/requestagain");
         }
       else
       {
@@ -48,6 +55,7 @@ export default function Userlogin(){
       }
       }catch(error)
       {
+        console.log(error);
         alert("Something went wrong");
       }
       console.log(data);

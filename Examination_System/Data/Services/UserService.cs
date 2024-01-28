@@ -23,26 +23,31 @@ namespace Examination_System.Data.Services
         public async Task<string> Login(LoginDTO d)
         {
             var f=await  db.Users.FirstOrDefaultAsync(n => n.Email==d.Email && n.Password==d.Password);
-            if (f.IsActive == 2)
+            if (f != null)
             {
-                return ("Inactive");
-            }
-            else if (f.IsActive == 0)
-                return ("Not Approved");
-            else if (f != null)
-            {
-                var jw = JwtGenerate(f.Email, f.Type, f.Id,f.BranchsId);
-                return (jw);
+                if (f.IsActive == 2)
+                {
+                    return ("Inactive");
+                }
+                else if (f.IsActive == 0)
+                    return ("Not Approved");
+                else if (f != null)
+                {
+                    var jw = JwtGenerate(f.Email, f.Type, f.Id, f.BranchsId);
+                    return (jw);
+                }
+                else
+                    return ("Not");
             }
             else
                 return ("Not");
         }
         public async Task<string> AdminLogin(LoginDTO d)
         {
-            var f= await db.Users.FirstOrDefaultAsync(n=>n.Email==d.Email && n.Password==d.Password);
+            var f= await db.Teachers.FirstOrDefaultAsync(n=>n.Email==d.Email && n.Password==d.Password);
             if (f != null)
             {
-                var jw=JwtGenerate(f.Email,f.Type, f.Id,f.BranchsId);   
+                var jw= JwtGenerateTeacher(f.Email,f.Role, f.Id);   
                 return (jw);
             }
             else
@@ -146,7 +151,7 @@ namespace Examination_System.Data.Services
             if (g != null)
             {
                 //var f = await db.Subjects.FirstOrDefaultAsync(n => n.Id == g.SubId);
-                var a = JwtGenerateTeacher(d.Email, "Teacher", g.Id);
+                var a = JwtGenerateTeacher(d.Email,g.Role, g.Id);
                 return (a);
             }
             else

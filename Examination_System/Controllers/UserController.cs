@@ -1,5 +1,6 @@
 ﻿using Examination_System.Data.DTO;
 using Examination_System.Data.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -33,22 +34,22 @@ namespace Examination_System.Controllers
 
         // GET api/<UserController>/5
         [HttpPost("[action]")]
-        public async Task<string> Login(LoginDTO l)
+        public async Task<IActionResult> Login(LoginDTO l)
         {
             var g=await userService.Login(l);
             if (g == "Not")
-                return ("Please register");
-            return (g);
+                return NotFound("Please register");
+            return Ok(g);
 
 
         }
         [HttpPost("[action]")]
-        public async Task<string> LoginAdmin(LoginDTO l)
+        public async Task<IActionResult> LoginAdmin(LoginDTO l)
         {
             var g = await userService.AdminLogin(l);
             if (g == "Not")
-                return ("Please register");
-            return (g);
+                return NotFound("Please register");
+            return Ok(g);
 
 
         }
@@ -68,6 +69,7 @@ namespace Examination_System.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<string> AdminApprove(int id)
         {
             var f=await userService.AdminAprroval(id);
@@ -77,6 +79,7 @@ namespace Examination_System.Controllers
                 return ("Not Found");
         }
         [HttpPut("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<string> AdminDeny(int id)
         {
             var f = await userService.AdminDenial(id);
@@ -86,6 +89,7 @@ namespace Examination_System.Controllers
                 return ("Not Found");
         }
         [HttpPut("[action]")]
+        [Authorize(Roles = "User")]
         public async Task<string> UserAgainRequest(string ema)
         {
             var f = await userService.UserRequestAgain(ema);
@@ -97,7 +101,9 @@ namespace Examination_System.Controllers
         //public void Delete(int id)
         //{
         //}
+        
         [HttpGet("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<List<UserdisplayapproveDTO>> UserAskingapproval()
         {
             var d = await userService.Useraskingapproval();

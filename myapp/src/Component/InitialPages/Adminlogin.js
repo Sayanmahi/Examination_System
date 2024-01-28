@@ -14,18 +14,30 @@ from 'mdb-react-ui-kit';
 import '../../App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 export default function Adminlogin(){
   const navigate=useNavigate();
     const emailref=useRef('');
     const passwordref=useRef('');
-    function sub()
+    const sub=async()=>
     {
         const data={
             Email:emailref.current.value,
             Password:passwordref.current.value,
         };
-        console.log(data);
+        try{
+        const d=await axios.post(`https://localhost:7062/api/User/LoginAdmin`,data);
+        window.alert("Login Successfull!");
+        localStorage.setItem("admintoken",d.data);
+        console.log(d);
+  
         navigate('/adminhome');
+        }
+        catch(e)
+        {
+          window.alert("You are not an admin!");
+          navigate('/adminlogin');
+        }
     }
     return(
         <MDBContainer className="my-5">
