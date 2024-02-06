@@ -9,6 +9,7 @@ export default function Subjecthome(){
     const navigate=useNavigate();
     const [Subjects,storedd]=useState([]);
     const [userid,setuserid]=useState();
+    const ss= localStorage.getItem("usertoken");
     var decoded=JWT(localStorage.getItem('usertoken'));
     
 
@@ -17,7 +18,11 @@ export default function Subjecthome(){
           }, []);
           const fetchOptions=async()=>
           {
-                const d=await fetch(`https://localhost:7062/api/Exam/GetSubsbybid?bid=${decoded.BranchId}`);
+                const d=await fetch(`https://localhost:7062/api/Exam/GetSubsbybid?bid=${decoded.BranchId}`,{
+                  headers:{
+                    'Authorization': `Bearer ${ss}`
+                }
+                });
                 const data = await d.json();
                 console.log(d);
                 console.log(data);

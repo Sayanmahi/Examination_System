@@ -18,6 +18,7 @@ import {
 export default function Addbranch(){
     const [branches, setBranches] = useState([]);
     const [selectedbrances,setselectedbranches]=useState([]);
+    const ss= localStorage.getItem("admintoken");
     const nameref=useRef();
     useEffect(() => {
         fetchOptions(); // Fetch options when the component mounts
@@ -42,7 +43,11 @@ export default function Addbranch(){
         console.log(selectedbrances);
         console.log(data);
         try{
-            const d= await axios.post(`https://localhost:7062/api/Branch/AddBranch`,data);
+            const d= await axios.post(`https://localhost:7062/api/Branch/AddBranch`,data,{
+              headers:{
+                'Authorization': `Bearer ${ss}`
+            }
+            });
             alert("Branch added sucessfully");
         }catch(error)
         {

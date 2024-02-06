@@ -35,7 +35,8 @@ namespace Examination_System.Controllers
             return Ok();
 
         }
-        [HttpPost("[action]")]
+        [HttpPost("[action]/{uid}/{subid}")]
+        //[Authorize(Roles = "Student")]
         public async Task<IActionResult> Submit(int uid,int subid)
         {
             var  d=await db.Submit(uid,subid);
@@ -59,6 +60,7 @@ namespace Examination_System.Controllers
             return Ok();
         }
         [HttpGet("[action]")]
+        [Authorize(Roles ="Student")]
         public async Task<IActionResult> GetSubsbybid(int bid)
         {
             var d=await db.GetSubbyBid(bid);

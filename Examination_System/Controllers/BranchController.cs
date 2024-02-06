@@ -1,6 +1,7 @@
 ﻿using Examination_System.Data.DTO;
 using Examination_System.Data.Services;
 using Examination_System.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -34,6 +35,7 @@ namespace Examination_System.Controllers
 
         // POST api/<BranchController>
         [HttpPost("[action]")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> AddBranch([FromBody] AddBranchDTO value)
         {
             var d = await db.Add(value);
@@ -47,6 +49,7 @@ namespace Examination_System.Controllers
             return Ok(d);
         }
         [HttpDelete("[action]/{sid}/{bid}")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Delete(int sid, int bid)
         {
             var d = await db.DeleteSubjectConnection(sid, bid);

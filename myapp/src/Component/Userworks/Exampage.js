@@ -50,7 +50,8 @@ export default function Exampage(){
         uid={decoded.UserId}
         />);
       const submit = async() => {
-       var d= await axios.post(`https://localhost:7062/api/Exam/Submit?uid=${decoded.UserId}&subid=${gg}`);
+       const d= await axios.post(`https://localhost:7062/api/Exam/Submit/${decoded.UserId}/${gg}`);
+       console.log(d);
        window.alert("Completed the Exam");
        navigate('/results');
       };

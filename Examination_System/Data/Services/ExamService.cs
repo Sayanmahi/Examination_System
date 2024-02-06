@@ -82,7 +82,7 @@ namespace Examination_System.Data.Services
             }
             else
             {
-                m.Marks= -right.WrongMark;
+                m.Marks= right.WrongMark;
             }
             await context.SaveChangesAsync();
 
@@ -95,6 +95,8 @@ namespace Examination_System.Data.Services
             {
                 var s = await context.Subjects.FirstOrDefaultAsync(n => n.Id == f.SubjectId);
                 decimal g = (((decimal)f.TotalGot /(decimal) f.Total) * 100);
+                if (g < 0)
+                    g = -g;
                 var pr = "";
                 if(g>=70)
                 {

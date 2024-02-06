@@ -8,6 +8,7 @@ export default function Branchhome(){
     const navigate=useNavigate();
     const [Subjects,storedd]=useState([]);
     const [userid,setuserid]=useState();
+    const ss= localStorage.getItem("admintoken");
         useEffect(() => {
             fetchOptions(); // Fetch options when the component mounts
           }, []);
@@ -32,8 +33,13 @@ export default function Branchhome(){
     {
         console.log("eeeeeeeeeeee   "+e);
         try{
-        const d= await axios.delete(`https://localhost:7062/api/Branch/DeleteBranch?id=${e}`);
+        const d= await axios.delete(`https://localhost:7062/api/Branch/DeleteBranch?id=${e}`,{
+          headers:{
+            'Authorization': `Bearer ${ss}`
+        }
+        });
         alert("Deleted Successfully");
+        window.location.reload();
         }catch(error)
         {
             alert("Something went!!");
