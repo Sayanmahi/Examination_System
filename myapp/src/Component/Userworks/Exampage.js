@@ -14,6 +14,7 @@ export default function Exampage(){
     const pqref=useRef();
     const [val,setval]=useState();
     const navigate=useNavigate();
+    const ss=localStorage.getItem('usertoken');
     var decoded=JWT(localStorage.getItem('usertoken')); 
 
 
@@ -22,11 +23,15 @@ export default function Exampage(){
       }, []);
       const fetchOptions=async()=>
       {
-            const d=await fetch(`https://localhost:7062/api/Exam/GetQuestionswrtsub/${gg}`);
-            const data = await d.json();
-            console.log(d);
-            console.log(data);
-            storedd(data);
+            const d=await axios.get(`https://localhost:7062/api/Exam/GetQuestionswrtsub/${gg}`,{
+              headers:{
+                'Authorization': `Bearer ${ss}`
+            }
+            });
+            // const data = await d.json();
+            // console.log(d);
+            // console.log(data);
+            storedd(d.data);
 
     //     }catch(error)
     //     {

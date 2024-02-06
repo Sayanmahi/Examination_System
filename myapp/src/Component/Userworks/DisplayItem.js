@@ -6,6 +6,7 @@ const DisplayItem=(props)=>{
     const pp=useRef();
     const [co,costate]=useState(0);
     const gg=localStorage.getItem('subid');
+    const ss=localStorage.getItem("usertoken");
     const handleChange1=async(p)=>
     {
        console.log(p,pp.current.value);
@@ -20,7 +21,11 @@ const DisplayItem=(props)=>{
         "option": pp.current.value
        }
        console.log(d);
-       const v= await axios.post(`https://localhost:7062/api/Exam/Storeans`,d);
+       const v= await axios.post(`https://localhost:7062/api/Exam/Storeans`,d,{
+        headers:{
+            'Authorization': `Bearer ${ss}`
+        }
+       });
     }
     else{
         costate(0);
@@ -37,7 +42,11 @@ const DisplayItem=(props)=>{
             "quesId": p,
             "option": pp.current.value
            }
-        const v= await axios.put(`https://localhost:7062/api/Exam/Put`,d);
+        const v= await axios.put(`https://localhost:7062/api/Exam/Put`,d,{
+            headers:{
+                'Authorization': `Bearer ${ss}`
+            }
+        });
         }
         else{
             window.alert("Please provide a valid option");

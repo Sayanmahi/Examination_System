@@ -35,17 +35,18 @@ const abc1=localStorage.getItem('admintoken');
       }
       const approved=async(e)=>
       {
+        console.log("aiiiiiiiiiiiiiiiiiiii",abc1);
         try{
         const d= await axios.put(`https://localhost:7062/api/User/AdminApprove?id=${e}`,{
           headers:{
             'Authorization': `Bearer ${abc1}`
-          }
+        }
         });
         window.location.reload();
         }catch(e)
         {
           alert('Unauthorised access');
-          navigate('/');
+          //navigate('/');
         }
       }
       const Deny=async(e)=>
@@ -54,7 +55,7 @@ const abc1=localStorage.getItem('admintoken');
         const d= await axios.put(`https://localhost:7062/api/User/AdminDeny?id=${e}`,{
           headers:{
             'Authorization': `Bearer ${abc1}`
-          }
+        }
         });
         window.location.reload();
         }catch(e)

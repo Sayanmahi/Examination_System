@@ -7,6 +7,7 @@ import JWT from "jwt-decode";
 export default function Results(){
     const [Marks,markstate]=useState([]);
     const navigate=useNavigate();
+    const ss=localStorage.getItem('usertoken');
     var decoded=JWT(localStorage.getItem('usertoken'));
 
     useEffect(() => {
@@ -22,10 +23,20 @@ export default function Results(){
       }, []);
       const fetchOptions= async()=>
       {
-        const d=await fetch(`https://localhost:7062/api/Exam/GetResult?uid=${decoded.UserId}`);
+        try{
+        const d=await fetch(`https://localhost:7062/api/Exam/GetResult?uid=${decoded.UserId}`,{
+          headers:{
+            'Authorization': `Bearer ${ss}`
+        }
+        });
         const data = await d.json();
         console.log(data);
         markstate(data);
+      }catch(e)
+      {
+        window.alert("You are not authorized to view this page");
+        navigate("/");
+      }
       }
       return(
         <>

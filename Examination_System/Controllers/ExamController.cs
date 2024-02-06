@@ -1,6 +1,7 @@
 ﻿using Examination_System.Data.DTO;
 using Examination_System.Data.Services;
 using Examination_System.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,6 +19,7 @@ namespace Examination_System.Controllers
         }
         // GET: api/<MarkController>
         [HttpGet("[action]/{subid}")]
+        [Authorize(Roles ="Student")]
         public async Task<List<Question>> GetQuestionswrtsub(int subid)
         {
             var d= await db.GetQuestions(subid);
@@ -26,6 +28,7 @@ namespace Examination_System.Controllers
 
         // POST api/<MarkController>
         [HttpPost("[action]")]
+        [Authorize(Roles ="Student")]
         public async Task<IActionResult> Storeans([FromBody] TempMarksDTO value)
         {
              await db.StoreAns(value);
@@ -40,6 +43,7 @@ namespace Examination_System.Controllers
 
         }
         [HttpGet("[action]")]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> GetResult(int uid)
         {
             var d= await db.GetResults(uid);
@@ -48,6 +52,7 @@ namespace Examination_System.Controllers
 
         // PUT api/<MarkController>/5
         [HttpPut("[action]")]
+        [Authorize(Roles ="Student")]
         public async Task<IActionResult> Put([FromBody] TempMarksDTO value)
         {
             await db.UpdateAns(value);
