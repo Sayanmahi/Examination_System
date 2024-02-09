@@ -62,6 +62,19 @@ namespace Examination_System.Data.Services
             return ("Teacher added Successfully");
         }
 
+        public async Task<string> DeleteInstitute(int id)
+        {
+            var d = await appDbContext.Institutes.FirstOrDefaultAsync(n => n.Id == id);
+            if(d!=null)
+            {
+                appDbContext.Remove(d);
+                await appDbContext.SaveChangesAsync();
+                return ("Deleted Successfully");
+            }
+            return ("No Such Institute Found!");
+
+        }
+
         public async Task<string> DeleteTeacher(int id)
         {
             var d=await appDbContext.Teachers.FirstOrDefaultAsync(n=> n.Id==id);
@@ -118,5 +131,6 @@ namespace Examination_System.Data.Services
             }
             return ("Something went worng");
         }
+
     }
 }

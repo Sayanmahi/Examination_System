@@ -18,12 +18,17 @@ export default function Modifyinstitute(props)
     const [regionstate,regionf]=useState();
     const [postalstate,postalf]=useState();
     const [phonestate,phonef]=useState();
+    const ss1= localStorage.getItem("admintoken");
     useEffect(() => {
         fetchfunction();
     },[]);
     const fetchfunction=async()=>
     {
-        const d=await axios.get(`https://localhost:7062/api/Institute/${searchparams.get("id")}`);
+        const d=await axios.get(`https://localhost:7062/api/Institute/${searchparams.get("id")}`,{
+            headers:{
+                'Authorization': `Bearer ${ss1}`
+            }
+        });
         console.log(d);
         namef(d.data.name);
         addressf(d.data.address);
@@ -48,7 +53,11 @@ export default function Modifyinstitute(props)
            Phone:phoneref.current.value
 
         };
-        await axios.put(`https://localhost:7062/api/Institute/Put?id=${searchparams.get("id")}`,fd);
+        await axios.put(`https://localhost:7062/api/Institute/Put?id=${searchparams.get("id")}`,fd,{
+            headers:{
+                'Authorization': `Bearer ${ss1}`
+            }
+        });
         window.alert("Modified Successfully");
         navigate('/institutehome');
     }catch(e)

@@ -19,16 +19,17 @@ export default function Addsubjects(){
     const [branches, setBranches] = useState([]);
     const [selectedbrances,setselectedbranches]=useState([]);
     const nameref=useRef();
+    const fg=localStorage.getItem("admintoken");
     useEffect(() => {
-        fetchOptions(); // Fetch options when the component mounts
+        fetchOptions(); 
       }, []);
       const fetchOptions = async () => {
         try {
           const response = await fetch(
             "https://localhost:7062/api/Branch/GetAllBranches"
-          ); // Replace with your API endpoint
+          );
           const data = await response.json();
-          setBranches(data); // Set the received data as options
+          setBranches(data); 
         } catch (error) {
           console.error("Error fetching options:", error);
         }
@@ -42,7 +43,11 @@ export default function Addsubjects(){
         console.log(selectedbrances);
         console.log(data);
         try{
-            const d= await axios.post(`https://localhost:7062/api/Subject/AddSubject`,data);
+            const d= await axios.post(`https://localhost:7062/api/Subject/AddSubject`,data,{
+              headers:{
+                'Authorization': `Bearer ${fg}`
+            }
+            });
             alert("Subject added sucessfully");
         }catch(error)
         {

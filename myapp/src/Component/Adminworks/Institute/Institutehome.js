@@ -9,12 +9,17 @@ export default function Subjecthome(){
     const navigate=useNavigate();
     const [Subjects,storedd]=useState([]);
     const [userid,setuserid]=useState();
+    const ss2=localStorage.getItem("admintoken");
         useEffect(() => {
             fetchOptions(); // Fetch options when the component mounts
           }, []);
           const fetchOptions=async()=>
           {
-                const d=await fetch('https://localhost:7062/api/Institute/GetAll');
+                const d=await fetch('https://localhost:7062/api/Institute/GetAll',{
+                  headers:{
+                    'Authorization': `Bearer ${ss2}`
+                }
+                });
                 const data = await d.json();
                 console.log(d);
                 console.log(d.data);
@@ -32,8 +37,13 @@ export default function Subjecthome(){
     const deleted=async(e)=>
     {
         try{
-        const d= await axios.delete(`https://localhost:7062/api/Subject/DeleteSubject?id=${e}`);
+        const d= await axios.delete(`https://localhost:7062/api/Institute/Delete?id=${e}`,{
+          headers:{
+            'Authorization': `Bearer ${ss2}`
+        }
+        });
         alert("Deleted Successfully");
+        window.localtion.reload();
         }catch(error)
         {
             alert("Something went!!");

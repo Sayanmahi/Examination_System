@@ -1,6 +1,7 @@
 ﻿using Examination_System.Data.DTO;
 using Examination_System.Data.Services;
 using Examination_System.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,6 +21,7 @@ namespace Examination_System.Controllers
         }
         // GET: api/<InstituteController>
         [HttpGet("[action]")]
+        [Authorize(Roles ="Admin")]
         public async Task<IEnumerable<Institute>> GetAll()
         {
             var d=await db.GetAll();
@@ -34,6 +36,7 @@ namespace Examination_System.Controllers
 
         // GET api/<InstituteController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetInstById(int id)
         {
             var d = await db.GetInstByid(id);
@@ -42,6 +45,7 @@ namespace Examination_System.Controllers
 
         // POST api/<InstituteController>
         [HttpPost("[action]")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> AddInst([FromBody] InstDTO value)
         {
             var d= await db.AddInst(value);
@@ -56,6 +60,7 @@ namespace Examination_System.Controllers
 
         // PUT api/<InstituteController>/5
         [HttpPut("[action]")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Put(int id, [FromBody] InstDTO value)
         {
             var d= await db.UpdateInst(id,value);
@@ -64,9 +69,10 @@ namespace Examination_System.Controllers
 
         // DELETE api/<InstituteController>/5
         [HttpDelete("[action]")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var d = await db.DeleteTeacher(id);
+            var d = await db.DeleteInstitute(id);
             return Ok(d);
         }
     }

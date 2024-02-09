@@ -13,6 +13,8 @@ export default function Addbranchconnection(){
     const[bname,bbname]=useState();
     const[ac,acp]=useState();
     const[a,ap]=useState();
+    const adm=localStorage.getItem("admintoken");
+    const adm1=localStorage.getItem("admintoken");
 
     useEffect(() => {
         fetchBranches(); // Fetch options when the component mounts
@@ -83,8 +85,13 @@ export default function Addbranchconnection(){
     {
       try
       {
-        const v=await axios.delete(`https://localhost:7062/api/Subject/Deletebranchconnection?sid=${x}&bid=${z}`);
-        alert("Branch Connection deleted");
+        const v=await axios.delete(`https://localhost:7062/api/Subject/Deletebranchconnection?sid=${x}&bid=${z}`,{
+          headers:{
+            'Authorization': `Bearer ${adm}`
+        }
+        });
+        window.location.reload();
+        alert("Branch Connection deleted")
         navigate('/addbranchconnection');
       }catch{
          alert("Something went wrong");

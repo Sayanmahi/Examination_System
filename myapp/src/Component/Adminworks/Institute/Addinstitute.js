@@ -24,6 +24,7 @@ export default function Addinstitute(){
     const regionref=useRef();
     const postalcoderef=useRef();
     const phoneref=useRef();
+    const ss3=localStorage.getItem("admintoken");
     useEffect(() => {
         fetchOptions(); // Fetch options when the component mounts
       }, []);
@@ -50,7 +51,11 @@ export default function Addinstitute(){
         }
         console.log(data);
         try{
-            const d= await axios.post(`https://localhost:7062/api/Institute/AddInst`,data);
+            const d= await axios.post(`https://localhost:7062/api/Institute/AddInst`,data,{
+              headers:{
+                'Authorization': `Bearer ${ss3}`
+            }
+            });
             alert("Institute added sucessfully");
         }catch(error)
         {
